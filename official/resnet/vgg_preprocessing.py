@@ -183,8 +183,6 @@ def _aspect_preserving_resize(image, resize_min):
   Returns:
     resized_image: A 3-D tensor containing the resized image.
   """
-  resize_min = tf.convert_to_tensor(resize_min, dtype=tf.int32)
-
   shape = tf.shape(image)
   height, width = shape[0], shape[1]
 

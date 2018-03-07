@@ -164,7 +164,7 @@ def _smallest_size_at_least(height, width, resize_min):
   """
   resize_min = tf.cast(resize_min, tf.float32)
 
-  smaller_dim = tf.minimum(height, width)
+  smaller_dim = tf.cast(tf.minimum(height, width), tf.float32)
   scale_ratio = resize_min / smaller_dim
   new_height = tf.cast(height * scale_ratio, tf.int32)
   new_width = tf.cast(width * scale_ratio, tf.int32)

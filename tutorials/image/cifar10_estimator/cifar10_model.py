@@ -38,7 +38,7 @@ class ResNetCifar10(model_base.ResNet):
     )
     self.n = (num_layers - 2) // 6
     # Add one in case label starts with 1. No impact if label starts with 0.
-    self.num_classes = 10 + 1
+    self.num_classes = 1000
     self.filters = [16, 16, 32, 64]
     self.strides = [1, 2, 2]
 

@@ -41,6 +41,8 @@ import six
 from six.moves import xrange  # pylint: disable=redefined-builtin
 import tensorflow as tf
 
+from tutorials.image.cifar10_estimator import imagenet_dataset
+
 tf.logging.set_verbosity(tf.logging.INFO)
 
 
@@ -143,7 +145,7 @@ def get_model_fn(num_gpus, variable_strategy, num_workers):
     with tf.device(consolidation_device):
       # Suggested learning rate scheduling from
       # https://github.com/ppwwyyxx/tensorpack/blob/master/examples/ResNet/cifar10-resnet.py#L155
-      num_batches_per_epoch = cifar10.Cifar10DataSet.num_examples_per_epoch(
+      num_batches_per_epoch = imagenet_dataset.ImagenetDataSet.num_examples_per_epoch(
           'train') // (params.train_batch_size * num_workers)
       boundaries = [
           num_batches_per_epoch * x
@@ -269,7 +271,7 @@ def input_fn(data_dir,
   """
   with tf.device('/cpu:0'):
     use_distortion = subset == 'train' and use_distortion_for_training
-    dataset = cifar10.Cifar10DataSet(data_dir, subset, use_distortion)
+    dataset = imagenet_dataset.ImagenetDataSet(data_dir, subset, use_distortion)
     image_batch, label_batch = dataset.make_batch(batch_size)
     if num_shards <= 1:
       # No GPU available or only 1 GPU.
